@@ -2,10 +2,11 @@ doctype html
 html
   head
     title
-      | ScoldingApp
+      | 無駄遣いを撲滅するアプリ
     = csrf_meta_tags
     = csp_meta_tag
     = stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload'
     = javascript_pack_tag 'application', 'data-turbolinks-track': 'reload'
   body
-    = yield
+    .container
+      = yield
