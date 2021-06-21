@@ -9,8 +9,7 @@ gem 'rails', '~> 6.0.4'
 gem 'pg', '>= 0.18', '< 2.0'
 # Use Puma as the app server
 gem 'puma', '~> 4.1'
-# Use SCSS for stylesheets
-gem 'sass-rails', '>= 6'
+
 # Transpile app-like JavaScript. Read more: https://github.com/rails/webpacker
 gem 'webpacker', '~> 4.0'
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
@@ -28,9 +27,54 @@ gem 'jbuilder', '~> 2.7'
 # Reduces boot times through caching; required in config/boot.rb
 gem 'bootsnap', '>= 1.4.2', require: false
 
+gem 'config'
+
+gem 'dotenv-rails'
+
+# Assets
+gem 'sass-rails', '>= 6'
+gem 'bootstrap', '4.6.0'
+gem 'font-awesome-sass'
+gem 'jquery-rails'
+
+# UI/UX
+gem 'rails-i18n'
+gem 'slim-rails'
+gem 'kaminari'
+gem 'gretel'
+
+# draper
+gem 'draper', github: 'drapergem/draper'
+
+# Authentication
+gem 'sorcery'
+gem 'bcrypt'
+
+# File Attached
+gem 'mini_magick', '>= 4.9.5'
+gem 'carrierwave'
+
+# Model
+gem 'enum_help'
+
+# Filter
+gem 'ransack'
+gem 'seed-fu'
+gem 'faker'
+
+# LineBot
+gem 'line-bot-api'
+gem 'httpclient'
+
 group :development, :test do
-  # Call 'byebug' anywhere in the code to stop execution and get a debugger console
+  gem 'rspec-rails'
+  gem 'rspec-request_describer'
+  gem 'factory_bot_rails'
+  gem 'rubocop', require: false
+  gem 'rubocop-rails'
+  gem 'html2slim'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
+  gem 'pry-byebug'
 end
 
 group :development do
@@ -40,6 +84,9 @@ group :development do
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
+  gem 'rails_best_practices', require: false
+  gem 'slim_lint', require: false
+  gem 'scss_lint', require: false
 end
 
 group :test do
@@ -49,6 +96,3 @@ group :test do
   # Easy installation and use of web drivers to run system tests with browsers
   gem 'webdrivers'
 end
-
-# Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
