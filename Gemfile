@@ -31,6 +31,8 @@ gem 'config'
 
 gem 'dotenv-rails'
 
+gem 'whenever', require: false
+
 # Assets
 gem 'sass-rails', '>= 6'
 gem 'bootstrap', '4.6.0'
