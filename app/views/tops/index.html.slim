@@ -1,14 +1,15 @@
-h1 無駄遣いを撲滅するアプリ
-p 無駄遣い...それは人類史の始まりより続く業の深い罪です。
-p コンビニでなんとなく買ったお酒、ネットショッピングの衝動買い...
-p 日々繰り返される罪深き行為によって、予想以上に出費を繰り返してしまう...そんな人々のために
-p 「無駄遣いを撲滅する」ことを目標に掲げたサービスです。
+.toppage-outer
+  .toppage-inner
+    h1.toppage-title 無駄遣いを撲滅するアプリ
+    p 無駄遣い...それは人類史の始まりより続く業の深い罪です。
+    p コンビニでなんとなく買ったお酒、ネットショッピングの衝動買い...
+    p 日々繰り返される罪深き行為によって、予想以上に出費を繰り返してしまう...そんな人々のために
+    p 「無駄遣いを撲滅する」ことを目標に掲げたサービスです。
 
-.row
-  = image_tag 'PQcode.png'
+    .row-center
+      .qrimage= image_tag 'PQcode.png', width: '200rem', height: '200rem'
 
-.row
-  = link_to '#', class: 'btn btn-secondary' do
-    p
-      i.fab.fa-line
-        | 友達追加
+    .row-center
+      .line-button= link_to '#', class: 'btn btn-green-moon btn-rounded btn-lg' do
+        p
+          i.fab.fa-line.fa-lg 友達追加
