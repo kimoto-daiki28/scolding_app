@@ -1,6 +1,6 @@
 namespace :push_line do 
   desc "push_line"
-  task push_line_message_evening: :environment do # 以下にpush機能のタスクを書く。
+  task push_line_message_everyday: :environment do # 以下にpush機能のタスクを書く。
     message = {
       type: 'text',
       text: '本日は何か無駄遣いをしましたか？した場合は「した」、してない場合は「してない」と入力してください。'
@@ -10,6 +10,5 @@ namespace :push_line do
       config.channel_token = ENV["LINE_CHANNEL_TOKEN"]
     }
     response = client.push_message(ENV["LINE_CHANNEL_USER_ID"], message)
-    p response
   end
 end
