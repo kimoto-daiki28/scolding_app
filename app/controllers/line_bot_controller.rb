@@ -9,9 +9,10 @@ class LineBotController < ApplicationController
     end
     events = client.parse_events_from(body)
     events.each do |event|
-      if event.message['text'].include?('した')
+      case event.message['text']
+      when 'した'
         response = 'しましたね'
-      elsif event.message['text'].include?('してない')
+      when 'してない'
         response = 'してませんね'
       else
         response = '不明'
