@@ -11,11 +11,13 @@ class LineBotController < ApplicationController
     events.each do |event|
       case event.message['text']
       when 'した'
-        response = 'しましたね'
+        response = '何を無駄遣いしましたか？'
       when 'してない'
-        response = 'してませんね'
+        response = "えらい！よく我慢できました！
+        \nあなたのそのブレない心に称賛を送ります！
+        \nその調子で誘惑に打ち勝っていきましょう！！"
       else
-        response = '不明'
+        response = '「した」か「してないか」を入力してください！'
       end
 
       case event
