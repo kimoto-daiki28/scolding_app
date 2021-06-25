@@ -1,6 +1,6 @@
 namespace :push_line do 
   desc "push_line"
-  task push_line_message_everyday: :environment do # 以下にpush機能のタスクを書く。
+  task message_everyday: :environment do
     message = {
       type: 'text',
       text: '本日は何か無駄遣いをしましたか？した場合は「した」、してない場合は「してない」と入力してください。'
