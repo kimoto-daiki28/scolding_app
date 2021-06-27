@@ -52,19 +52,6 @@ class LineBotController < ApplicationController
     head :ok
   end
 
-  def first_res(message)
-    case message
-    when 'した'
-      response = '何を無駄遣いしましたか？'
-    when 'してない'
-      response = "えらい！よく我慢できました！
-      \nあなたのそのブレない心に称賛を送ります！
-      \nその調子で誘惑に打ち勝っていきましょう！！"
-    else
-      response = '「した」か「してないか」を入力してください！'
-    end
-  end
-
   private
 
   def client
@@ -73,4 +60,35 @@ class LineBotController < ApplicationController
       config.channel_token = ENV["LINE_CHANNEL_TOKEN"]
     }
   end
+
+  # def first_res(message)
+  #   case message
+  #   when 'した'
+  #     response = '何を無駄遣いしましたか？'
+  #   when 'してない'
+  #     response = "えらい！よく我慢できました！
+  #     \nあなたのそのブレない心に称賛を送ります！
+  #     \nその調子で誘惑に打ち勝っていきましょう！！"
+  #   else
+  #     response = '「した」か「してないか」を入力してください！'
+  #   end
+  # end
+
+  # def second_res(message)
+  #   case message
+  #   when 'お菓子' || 'お酒' || 'ネットショッピング' || 'ジュース'
+  #     response = 'いくらですか？'
+  #   else
+  #     response = '認識できませんでした。'
+  #   end
+  # end
+
+  # def third_res(message)
+  #   case message
+  #   when '1'..'30000'
+  #     response = "#{event.message['text']}円も使ったんですか？バカですか？"
+  #   else
+  #     response = '1〜30000で入力してください'
+  #   end
+  # end
 end
