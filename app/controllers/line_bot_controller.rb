@@ -14,6 +14,8 @@ class LineBotController < ApplicationController
         case event.message['text']
         when 'した'
           response = '何を無駄遣いしましたか？'
+          buttons = first_quick_button
+          set_buttons(buttons)
         when 'してない'
           response = "えらい！よく我慢できました！\nあなたのそのブレない心に称賛を送ります！\nその調子で誘惑に打ち勝っていきましょう！！"
         end
@@ -31,7 +33,7 @@ class LineBotController < ApplicationController
         when Line::Bot::Event::MessageType::Text
           message = {
             type: 'text',
-            text: response
+            text: response,
           }
           client.reply_message(event['replyToken'], message)
         end
@@ -49,34 +51,38 @@ class LineBotController < ApplicationController
     }
   end
 
-  # def first_res(message)
-  #   case message
-  #   when 'した'
-  #     response = '何を無駄遣いしましたか？'
-  #   when 'してない'
-  #     response = "えらい！よく我慢できました！
-  #     \nあなたのそのブレない心に称賛を送ります！
-  #     \nその調子で誘惑に打ち勝っていきましょう！！"
-  #   else
-  #     response = '「した」か「してないか」を入力してください！'
-  #   end
-  # end
+  def set_buttons(buttons)
+    buttons.each do |button|
+      puts button.class
+    end
+  end
 
-  # def second_res(message)
-  #   case message
-  #   when 'お菓子' || 'お酒' || 'ネットショッピング' || 'ジュース'
-  #     response = 'いくらですか？'
-  #   else
-  #     response = '認識できませんでした。'
-  #   end
-  # end
-
-  # def third_res(message)
-  #   case message
-  #   when '1'..'30000'
-  #     response = "#{event.message['text']}円も使ったんですか？バカですか？"
-  #   else
-  #     response = '1〜30000で入力してください'
-  #   end
-  # end
+  def first_quick_button
+    {
+      "type": "text",
+      "text": "Select your favorite food category or send me your location!",
+      "quickReply": {
+        "items": [
+          {
+            "type": "action",
+            "imageUrl": "https://example.com/sushi.png",
+            "action": {
+              "type": "message",
+              "label": "した",
+              "text": "した"
+            }
+          },
+          {
+            "type": "action",
+            "imageUrl": "https://example.com/tempura.png",
+            "action": {
+              "type": "message",
+              "label": "してない",
+              "text": "してない"
+            }
+          }
+        ]
+      }
+    }
+  end
 end
