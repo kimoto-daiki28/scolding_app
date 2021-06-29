@@ -3,7 +3,7 @@ class LineClient < ApplicationRecord
   def self.first_quick_reply
     {
       "type": "text",
-      "text": "Select your favorite food category or send me your location!",
+      "text": "本日は何か無駄遣いをしましたか？",
       "quickReply": {
         "items": [
           {
@@ -32,7 +32,7 @@ class LineClient < ApplicationRecord
   def self.second_quick_reply
     {
       "type": "text",
-      "text": "Select your favorite food category or send me your location!",
+      "text": "何を無駄遣いしましたか？",
       "quickReply": {
         "items": [
           {
