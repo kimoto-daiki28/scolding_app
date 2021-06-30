@@ -1,14 +1,9 @@
 class LineBotController < ApplicationController
   require 'line/bot'
-  protect_from_forgery except: [:callback]
+  protect_from_forgery except: :callback
+  before_action :validate_signature, only: :callback
 
   def callback
-    body = request.body.read
-    signature = request.env['HTTP_X_LINE_SIGNATURE']
-    unless client.validate_signature(body, signature)
-      return head :bad_request
-    end
-    events = client.parse_events_from(body)
     events.each do |event|
       @message = event.message['text']
       case event
@@ -20,30 +15,14 @@ class LineBotController < ApplicationController
             message = ::LineClient.second_quick_reply
           when 'してない'
             response = "えらい！よく我慢できました！\nあなたのそのブレない心に称賛を送ります！\nその調子で誘惑に打ち勝っていきましょう！！"
-            message = {
-              type: 'text',
-              text: response
-            }
           when 'お菓子', 'お酒', 'ネットショッピング', 'ジュース'
             response = "いくらでしたか？"
-            message = {
-              type: 'text',
-              text: response
-            }
           when ('1'..'30000')
             response = "#{@message}円も使ったんですか？バカですか？"
-            message = {
-              type: 'text',
-              text: response
-            }
           else
             response = '認識できませんでした。もう一度入力してください。'
-            message = {
-              type: 'text',
-              text: response
-            }
           end
-          client.reply_message(event['replyToken'], message)
+          client.reply_message(event['replyToken'], message || message(response))
         end
       end
     end
@@ -52,10 +31,30 @@ class LineBotController < ApplicationController
 
   private
 
+  def body
+    @body ||= request.body.read
+  end
+
+  def events
+    @events ||= client.parse_events_from(body)
+  end
+
   def client
     @client ||= Line::Bot::Client.new { |config|
       config.channel_secret = ENV["LINE_CHANNEL_SECRET"]
       config.channel_token = ENV["LINE_CHANNEL_TOKEN"]
     }
+  end
+
+  def message(response)
+    @message = {
+      type: 'text',
+      text: response
+    }
+  end
+
+  def validate_signature
+    signature = request.env['HTTP_X_LINE_SIGNATURE']
+    head :bad_request unless client.validate_signature(body, signature)
   end
 end
