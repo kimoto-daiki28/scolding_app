@@ -49,8 +49,7 @@ gem 'gretel'
 gem 'draper', github: 'drapergem/draper'
 
 # Authentication
-gem 'sorcery'
-gem 'bcrypt'
+gem 'omniauth-line'
 
 # File Attached
 gem 'mini_magick', '>= 4.9.5'
