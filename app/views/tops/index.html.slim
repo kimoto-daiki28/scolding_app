@@ -10,5 +10,5 @@
       .qrimage= image_tag 'PQcode.png', width: '200rem', height: '200rem'
 
     .row-center
-      = link_to users_path, method: :post do 
-        = image_tag 'line_login.png', size: '180x60'
+      = link_to ENV['LINE_LOGIN'], size: '180x60', id: 'test' do 
+        = image_tag 'btn_login_hover.png', size: '180x60'

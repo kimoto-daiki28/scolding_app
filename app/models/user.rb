@@ -7,15 +7,16 @@ class User < ApplicationRecord
     req = Net::HTTP::Post.new(uri)
     req.content_type = 'application/x-www-form-urlencoded'
     req.set_form_data(
-      'client_id' => ENV['CLIENT_ID'],
-      'client_secret' => ENV['CLIENT_SECRET'],
+      'client_id' => '1656161617',
+      'client_secret' => '78372c383fa4d3ffa351336eb8c07f2e',
       'code' => code,
       'grant_type' => 'authorization_code',
-      'redirect_uri' => ENV['SITE_URL']
+      'redirect_uri' => 'http://localhost:3000/users/new'
     )
     req_options = {
       use_ssl: uri.scheme == 'https'
     }
+    
 
     response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
       http.request(req)
