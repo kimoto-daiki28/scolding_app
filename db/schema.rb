@@ -28,8 +28,8 @@ ActiveRecord::Schema.define(version: 2021_07_04_061705) do
   end
 
   create_table "wastings", force: :cascade do |t|
-    t.string "name", null: false
-    t.integer "price", null: false
+    t.string "name"
+    t.integer "price"
     t.bigint "user_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
