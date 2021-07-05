@@ -4,7 +4,6 @@ class WastingsController < ApplicationController
   before_action :validate_signature, only: :create
 
   def create
-    # @wasting = Wasting.create
     events.each do |event|
       @user = User.find_by(line_id: event['source']['userId'])
       @message = event.message['text']
@@ -14,10 +13,10 @@ class WastingsController < ApplicationController
         when Line::Bot::Event::MessageType::Text
           case @message
           when 'した'
-            message = ::Wasting.second_quick_reply
+            message = Wasting.second_quick_reply
           when 'してない'
             response = WastingDecorator.name_response
-          when 'お菓子', 'お酒', 'ネットショッピング', 'ジュース'
+          when 'お菓子', 'お酒', 'ネットショッピング', 'ギャンブル', 'たばこ'
             response = "いくらでしたか？"
             @wasting_name = event['message']['text']
           when ('1'..'30000')
@@ -30,9 +29,7 @@ class WastingsController < ApplicationController
         end
       end
     end
-    # @wasting.user = @user
-    # @wasting.name = @wasting_name
-    # @wasting.price = @wasting_price
+    @wasting = @user.wastings.create(name: @wasting_name, price: @wasting_price)
     # binding.pry
     head :ok
   end

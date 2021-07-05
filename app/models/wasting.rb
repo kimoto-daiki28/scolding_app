@@ -71,8 +71,17 @@ class Wasting < ApplicationRecord
             "imageUrl": "https://example.com/tempura.png",
             "action": {
               "type": "message",
-              "label": "ジュース",
-              "text": "ジュース"
+              "label": "ギャンブル",
+              "text": "ギャンブル"
+            }
+          },
+          {
+            "type": "action",
+            "imageUrl": "https://example.com/tempura.png",
+            "action": {
+              "type": "message",
+              "label": "たばこ",
+              "text": "たばこ"
             }
           }
         ]

@@ -1,12 +1,12 @@
-namespace :push_line do 
+namespace :push_line do
   desc "push_line"
   task message_everyday: :environment do
-    message = ::Wasting.first_quick_reply
+    message = Wasting.first_quick_reply
 
     client = Line::Bot::Client.new { |config|
       config.channel_secret = ENV["LINE_CHANNEL_SECRET"]
       config.channel_token = ENV["LINE_CHANNEL_TOKEN"]
     }
-    response = client.push_message(ENV["LINE_CHANNEL_USER_ID"], message)
+    client.push_message(ENV["LINE_CHANNEL_USER_ID"], message)
   end
 end
