@@ -1,9 +1,9 @@
-class LineBotController < ApplicationController
+class WastingsController < ApplicationController
   require 'line/bot'
-  protect_from_forgery except: :callback
-  before_action :validate_signature, only: :callback
+  protect_from_forgery except: :create
+  before_action :validate_signature, only: :create
 
-  def callback
+  def create
     # @wasting = Wasting.create
     events.each do |event|
       @user = User.find_by(line_id: event['source']['userId'])
@@ -14,7 +14,7 @@ class LineBotController < ApplicationController
         when Line::Bot::Event::MessageType::Text
           case @message
           when 'した'
-            message = ::LineClient.second_quick_reply
+            message = ::Wasting.second_quick_reply
           when 'してない'
             response = "えらい！よく我慢できました！\nあなたのそのブレない心に称賛を送ります！\nその調子で誘惑に打ち勝っていきましょう！！"
           when 'お菓子', 'お酒', 'ネットショッピング', 'ジュース'
@@ -33,7 +33,7 @@ class LineBotController < ApplicationController
     # @wasting.user = @user
     # @wasting.name = @wasting_name
     # @wasting.price = @wasting_price
-    binding.pry
+    # binding.pry
     head :ok
   end
 
