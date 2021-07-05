@@ -16,7 +16,7 @@ class WastingsController < ApplicationController
           when 'した'
             message = ::Wasting.second_quick_reply
           when 'してない'
-            response = "えらい！よく我慢できました！\nあなたのそのブレない心に称賛を送ります！\nその調子で誘惑に打ち勝っていきましょう！！"
+            response = WastingDecorator.name_response
           when 'お菓子', 'お酒', 'ネットショッピング', 'ジュース'
             response = "いくらでしたか？"
             @wasting_name = event['message']['text']
@@ -24,7 +24,7 @@ class WastingsController < ApplicationController
             response = WastingDecorator.price_response(@message)
             @wasting_price = event['message']['text']
           else
-            response = '認識できませんでした。もう一度入力してください。'
+            response = WastingDecorator.unrecognizable_response
           end
           client.reply_message(event['replyToken'], message || message(response))
         end
