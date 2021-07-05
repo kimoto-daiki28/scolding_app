@@ -21,7 +21,7 @@ class WastingsController < ApplicationController
             response = "いくらでしたか？"
             @wasting_name = event['message']['text']
           when ('1'..'30000')
-            response = "#{@message}円も使ったんですか？バカですか？"
+            response = WastingDecorator.price_response(@message)
             @wasting_price = event['message']['text']
           else
             response = '認識できませんでした。もう一度入力してください。'
