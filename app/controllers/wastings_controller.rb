@@ -17,7 +17,7 @@ class WastingsController < ApplicationController
           when 'してない'
             response = WastingDecorator.name_response
           when 'お菓子', 'お酒', 'ネットショッピング', 'ギャンブル', 'たばこ'
-            response = "いくらでしたか？"
+            response = 'いくらでしたか？'
             @wasting_name = event['message']['text']
           when ('1'..'30000')
             response = WastingDecorator.price_response(@message)
@@ -29,7 +29,7 @@ class WastingsController < ApplicationController
         end
       end
     end
-    @wasting = @user.wastings.create(name: @wasting_name, price: @wasting_price)
+    # @wasting = @user.wastings.create(name: @wasting_name, price: @wasting_price)
     # binding.pry
     head :ok
   end
@@ -46,8 +46,8 @@ class WastingsController < ApplicationController
 
   def client
     @client ||= Line::Bot::Client.new { |config|
-      config.channel_secret = ENV["LINE_CHANNEL_SECRET"]
-      config.channel_token = ENV["LINE_CHANNEL_TOKEN"]
+      config.channel_secret = ENV["DEVELOP_LINE_CHANNEL_SECRET"]
+      config.channel_token = ENV["DEVELOP_LINE_CHANNEL_TOKEN"]
     }
   end
 
