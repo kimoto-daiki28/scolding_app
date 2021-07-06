@@ -1,6 +1,8 @@
 class Wasting < ApplicationRecord
   belongs_to :user
 
+  scope :weekly, -> { where(created_at: (0.days.ago.prev_week(:monday))..(0.days.ago.prev_week(:sunday).end_of_day)) }
+
   def self.first_quick_reply
     {
       "type": "text",
