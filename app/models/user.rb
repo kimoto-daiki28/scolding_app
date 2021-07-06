@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  has_many :wastings, dependent: :destroy
   validates :name, presence: true, uniqueness: true
   validates :line_id, presence: true, uniqueness: true
 
@@ -7,16 +8,15 @@ class User < ApplicationRecord
     req = Net::HTTP::Post.new(uri)
     req.content_type = 'application/x-www-form-urlencoded'
     req.set_form_data(
-      'client_id' => '1656161617',
-      'client_secret' => '78372c383fa4d3ffa351336eb8c07f2e',
+      'client_id' => ENV['DEVELOP_LINE_LOGIN_ID'],
+      'client_secret' => ENV['DEVELOP_LINE_LOGIN_SECRET'],
       'code' => code,
       'grant_type' => 'authorization_code',
-      'redirect_uri' => 'http://localhost:3000/users/new'
+      'redirect_uri' => ENV['DEVELOP_SITE_URL']
     )
     req_options = {
       use_ssl: uri.scheme == 'https'
     }
-    
 
     response = Net::HTTP.start(uri.hostname, uri.port, req_options) do |http|
       http.request(req)

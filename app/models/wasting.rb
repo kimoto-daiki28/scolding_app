@@ -1,4 +1,8 @@
-class LineClient < ApplicationRecord
+class Wasting < ApplicationRecord
+  belongs_to :user
+
+  # validates :name, presence: true
+  # validates :price, presence: true
 
   def self.first_quick_reply
     {
@@ -67,8 +71,17 @@ class LineClient < ApplicationRecord
             "imageUrl": "https://example.com/tempura.png",
             "action": {
               "type": "message",
-              "label": "ジュース",
-              "text": "ジュース"
+              "label": "ギャンブル",
+              "text": "ギャンブル"
+            }
+          },
+          {
+            "type": "action",
+            "imageUrl": "https://example.com/tempura.png",
+            "action": {
+              "type": "message",
+              "label": "たばこ",
+              "text": "たばこ"
             }
           }
         ]
