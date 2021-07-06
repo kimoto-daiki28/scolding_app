@@ -1,11 +1,12 @@
 .toppage-outer
   .toppage-inner
-    h1.toppage-title 無駄遣いを撲滅するアプリ
+    h1.toppage-title NO無駄遣い(仮)
     p 無駄遣い...それは人類史の始まりより続く業の深い罪です。
     p コンビニでなんとなく買ったお酒、ネットショッピングの衝動買い...
     p 日々繰り返される罪深き行為によって、予想以上に出費を繰り返してしまう...そんな人々のために
     p 「無駄遣いを撲滅する」ことを目標に掲げたサービスです。
 
     .row-center
-      = link_to ENV['LINE_LOGIN'], size: '180x60', id: 'test' do 
-        = image_tag 'btn_login_hover.png', size: '180x60'
+      .line_button
+        = link_to ENV['LINE_LOGIN'], size: '180x60', id: 'test' do 
+          = image_tag 'btn_login_hover.png', size: '180x60'

@@ -7,8 +7,20 @@
  @import "font-awesome";
  @import "top";
 
- // footer
-#footer {
+ #header-logo {
+  color:white;
+}
+
+//body
+
+body {
+  padding: 5rem 0 10rem 0;
+}
+
+//body
+
+//footer
+footer {
   position: absolute;
   bottom: 0;
   width: 100%;
