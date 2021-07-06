@@ -17,11 +17,11 @@ class WastingsController < ApplicationController
           when 'してない'
             response = WastingDecorator.name_response
           when 'お菓子', 'お酒', 'ネットショッピング', 'ギャンブル', 'たばこ'
+            @wasting = @user.wastings.create(name: event['message']['text'])
             response = 'いくらでしたか？'
-            @wasting_name = event['message']['text']
           when ('1'..'30000')
             response = WastingDecorator.price_response(@message)
-            @wasting_price = event['message']['text']
+            wasting_find_and_save(event['message']['text'])
           else
             response = WastingDecorator.unrecognizable_response
           end
@@ -29,8 +29,6 @@ class WastingsController < ApplicationController
         end
       end
     end
-    # @wasting = @user.wastings.create(name: @wasting_name, price: @wasting_price)
-    # binding.pry
     head :ok
   end
 
@@ -61,5 +59,11 @@ class WastingsController < ApplicationController
   def validate_signature
     signature = request.env['HTTP_X_LINE_SIGNATURE']
     head :bad_request unless client.validate_signature(body, signature)
+  end
+
+  def wasting_find_and_save(message)
+    wasting = @user.wastings.last
+    wasting[:price] = message
+    wasting.save
   end
 end
