@@ -1,9 +1,6 @@
 class Wasting < ApplicationRecord
   belongs_to :user
 
-  # validates :name, presence: true
-  # validates :price, presence: true
-
   def self.first_quick_reply
     {
       "type": "text",

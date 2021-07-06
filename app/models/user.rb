@@ -8,11 +8,14 @@ class User < ApplicationRecord
     req = Net::HTTP::Post.new(uri)
     req.content_type = 'application/x-www-form-urlencoded'
     req.set_form_data(
-      'client_id' => ENV['DEVELOP_LINE_LOGIN_ID'],
-      'client_secret' => ENV['DEVELOP_LINE_LOGIN_SECRET'],
+      'client_id' => ENV['LINE_LOGIN_ID'],
+      'client_secret' => ENV['LINE_LOGIN_SECRET'],
+      # 'client_id' => ENV['DEVELOP_LINE_LOGIN_ID'],
+      # 'client_secret' => ENV['DEVELOP_LINE_LOGIN_SECRET'],
       'code' => code,
       'grant_type' => 'authorization_code',
-      'redirect_uri' => ENV['DEVELOP_SITE_URL']
+      'redirect_uri' => ENV['SITE_URL']
+      # 'redirect_uri' => ENV['DEVELOP_SITE_URL']
     )
     req_options = {
       use_ssl: uri.scheme == 'https'
