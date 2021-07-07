@@ -97,8 +97,8 @@ class Wasting < ApplicationRecord
   def self.weekly_report
     {
       "type": "text",
-      "text": "先週は#{weekly_total_wasting}円も使いましたね...
-無駄遣いはやめましょう。
+      "text": "先週は#{weekly_total_wasting}円も無駄遣いをしましたね...
+来週はもっと頑張りましょう。
 お菓子: #{sweets.weekly_total_wasting}円
 お酒: #{alcohols.weekly_total_wasting}円
 ネットショッピング: #{online_shoppings.weekly_total_wasting}円
