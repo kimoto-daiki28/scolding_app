@@ -3,6 +3,11 @@ class Wasting < ApplicationRecord
 
   scope :weekly, -> { where(created_at: (0.days.ago.prev_week(:monday))..(0.days.ago.prev_week(:sunday).end_of_day)) }
   scope :weekly_total_wasting, -> { weekly.pluck(:price).sum }
+  scope :sweets, -> { where(name: 'お菓子') }
+  scope :alcohols, -> { where(name: 'お酒') }
+  scope :online_shoppings, -> { where(name: 'ネットショッピング') }
+  scope :gamblings, -> { where(name: 'ギャンブル') }
+  scope :cigarettes, -> { where(name: 'たばこ') }
 
   def self.first_quick_reply
     {
@@ -86,6 +91,19 @@ class Wasting < ApplicationRecord
           }
         ]
       }
+    }
+  end
+
+  def self.weekly_report
+    {
+      "type": "text",
+      "text": "先週は#{weekly_total_wasting}円も使いましたね...
+無駄遣いはやめましょう。
+お菓子: #{sweets.weekly_total_wasting}円
+お酒: #{alcohols.weekly_total_wasting}円
+ネットショッピング: #{online_shoppings.weekly_total_wasting}円
+ギャンブル: #{gamblings.weekly_total_wasting}円
+たばこ: #{cigarettes.weekly_total_wasting}円"
     }
   end
 end

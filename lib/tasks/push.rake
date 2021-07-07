@@ -21,10 +21,7 @@ namespace :push_line do
   task message_everyweek: :environment do
     users = User.all
     users.each do |user|
-      message = {
-        type: 'text',
-        text: "先週は#{user.wastings.weekly_total_wasting}円も使いましたね...無駄遣いはやめましょう。"
-      }
+      message = user.wastings.weekly_report
 
       client = Line::Bot::Client.new { |config|
         config.channel_secret = ENV["DEVELOP_LINE_CHANNEL_SECRET"]
