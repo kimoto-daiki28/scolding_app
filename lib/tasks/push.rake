@@ -1,5 +1,5 @@
 namespace :push_line do
-  desc "push_line"
+  desc 'everyday_report'
   task message_everyday: :environment do
     message = Wasting.first_quick_reply
 
@@ -15,5 +15,22 @@ namespace :push_line do
       config.channel_token = ENV["DEVELOP_LINE_CHANNEL_TOKEN"]
     }
     client.push_message(ENV["DEVELOP_LINE_CHANNEL_USER_ID"], message)
+  end
+
+  desc 'everyweek_report'
+  task message_everyweek: :environment do
+    users = User.all
+    users.each do |user|
+      message = {
+        type: 'text',
+        text: "先週は#{user.wastings.weekly_total_wasting}円も使いましたね...無駄遣いはやめましょう。"
+      }
+
+      client = Line::Bot::Client.new { |config|
+        config.channel_secret = ENV["DEVELOP_LINE_CHANNEL_SECRET"]
+        config.channel_token = ENV["DEVELOP_LINE_CHANNEL_TOKEN"]
+      }
+      client.push_message(ENV["DEVELOP_LINE_CHANNEL_USER_ID"], message)
+    end
   end
 end
