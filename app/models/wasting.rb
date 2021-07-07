@@ -94,6 +94,35 @@ class Wasting < ApplicationRecord
     }
   end
 
+  def self.third_quick_reply
+    {
+      "type": "text",
+      "text": "他にはありますか？",
+      "quickReply": {
+        "items": [
+          {
+            "type": "action",
+            "imageUrl": "https://example.com/sushi.png",
+            "action": {
+              "type": "message",
+              "label": "はい",
+              "text": "はい"
+            }
+          },
+          {
+            "type": "action",
+            "imageUrl": "https://example.com/tempura.png",
+            "action": {
+              "type": "message",
+              "label": "いいえ",
+              "text": "いいえ"
+            }
+          }
+        ]
+      }
+    }
+  end
+
   def self.weekly_report
     {
       "type": "text",
