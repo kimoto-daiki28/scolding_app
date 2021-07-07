@@ -2,6 +2,7 @@ class Wasting < ApplicationRecord
   belongs_to :user
 
   scope :weekly, -> { where(created_at: (0.days.ago.prev_week(:monday))..(0.days.ago.prev_week(:sunday).end_of_day)) }
+  scope :weekly_total_wasting, -> { weekly.pluck(:price).sum }
 
   def self.first_quick_reply
     {
