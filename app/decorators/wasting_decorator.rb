@@ -6,7 +6,7 @@ class WastingDecorator < Draper::Decorator
   end
 
   def self.price_response(message)
-    "#{message}円も使ったんですか？バカですか？"
+    "#{message}円も使ったんですか？\n意志の弱い人ですね...\nただでさえ財布が薄いんですからもうちょっと考えましょうよ..."
   end
 
   def self.unrecognizable_response

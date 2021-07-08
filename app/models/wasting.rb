@@ -127,7 +127,9 @@ class Wasting < ApplicationRecord
     {
       "type": "text",
       "text": "先週は#{weekly_total_wasting}円も無駄遣いをしましたね...
-来週はもっと頑張りましょう。
+#{weekly_total_wasting}円はあなたの時給の何時間分ですか？
+あなたの意志の弱さ故にその労働が無駄になったことに気づいてください...
+悔い改めましょう。
 お菓子: #{sweets.weekly_total_wasting}円
 お酒: #{alcohols.weekly_total_wasting}円
 ネットショッピング: #{online_shoppings.weekly_total_wasting}円
