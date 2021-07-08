@@ -18,7 +18,7 @@ class WastingsController < ApplicationController
             response = WastingDecorator.name_response
           when 'お菓子', 'お酒', 'ネットショッピング', 'ギャンブル', 'たばこ'
             @wasting = @user.wastings.create(name: event['message']['text'])
-            response = 'いくらでしたか？'
+            response = "いくらでしたか？\n1〜30,000で入力してください。"
           when ('1'..'30000')
             response = WastingDecorator.price_response(@message)
             wasting_find_and_save(event['message']['text'])
