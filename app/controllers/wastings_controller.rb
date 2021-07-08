@@ -2,6 +2,7 @@ class WastingsController < ApplicationController
   require 'line/bot'
   protect_from_forgery except: :create
   before_action :validate_signature, only: :create
+  skip_before_action :login_require, only: :create
 
   def create
     events.each do |event|
