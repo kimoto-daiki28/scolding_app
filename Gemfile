@@ -19,14 +19,12 @@ gem 'sass-rails', '>= 6'
 gem 'bootstrap', '4.6.0'
 gem 'font-awesome-sass'
 gem 'jquery-rails'
-gem 'momentjs-rails'
 
 # UI/UX
 gem 'rails-i18n'
 gem 'slim-rails'
 gem 'kaminari'
 gem 'gretel'
-gem 'fullcalendar-rails'
 
 # draper
 gem 'draper', github: 'drapergem/draper'
