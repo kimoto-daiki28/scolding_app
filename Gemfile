@@ -19,12 +19,14 @@ gem 'sass-rails', '>= 6'
 gem 'bootstrap', '4.6.0'
 gem 'font-awesome-sass'
 gem 'jquery-rails'
+gem 'momentjs-rails'
 
 # UI/UX
 gem 'rails-i18n'
 gem 'slim-rails'
 gem 'kaminari'
 gem 'gretel'
+gem 'fullcalendar-rails'
 
 # draper
 gem 'draper', github: 'drapergem/draper'
@@ -54,7 +56,6 @@ group :development, :test do
   gem 'factory_bot_rails'
   gem 'rubocop', require: false
   gem 'rubocop-rails'
-  gem 'html2slim'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'pry-byebug'
 end
