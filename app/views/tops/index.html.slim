@@ -6,11 +6,10 @@
       h2.toppage-title ネットショッピングの衝動買い...
       h2.toppage-title 予想以上に出費を繰り返してしまう...
       h2.toppage-title そんな人々のために
+
       .line_button
-        / = link_to ENV['DEVELOP_LINE_LOGIN'], size: '180x60', id: 'test' do 
-        = link_to ENV['LINE_LOGIN'], id: 'test' do 
+        = link_to ENV['DEVELOP_LINE_LOGIN'], size: '180x60', id: 'test' do 
+          / = link_to ENV['LINE_LOGIN'], id: 'test' do 
           = image_tag 'btn_login_hover.png', size: '180x60', class: 'mt-5'
     .col-md-4 
       = image_tag 'iphone.png', size: '300x700'
-
-      

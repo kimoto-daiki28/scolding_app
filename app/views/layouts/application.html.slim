@@ -10,7 +10,8 @@ html
     meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"
   body
     = render 'shared/flash'
-    //= render 'shared/before_login_header'
+    - if current_user
+      = render 'shared/header'
     .container
       = yield
     = render 'shared/footer'
