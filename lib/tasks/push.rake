@@ -14,6 +14,10 @@ namespace :push_line do
     #   config.channel_token = ENV["DEVELOP_LINE_CHANNEL_TOKEN"]
     # }
     # client.push_message(ENV["DEVELOP_LINE_CHANNEL_USER_ID"], message)
+
+    User.all.each do |user|
+      client.push_message(user.line_id, message)
+    end
   end
 
   desc 'everyweek_report'
@@ -33,6 +37,9 @@ namespace :push_line do
       #   config.channel_token = ENV["DEVELOP_LINE_CHANNEL_TOKEN"]
       # }
       # client.push_message(ENV["DEVELOP_LINE_CHANNEL_USER_ID"], message)
+      User.all.each do |user|
+        client.push_message(user.line_id, message)
+      end
     end
   end
 end
