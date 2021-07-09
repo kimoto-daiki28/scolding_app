@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
+  get 'my_pages/show'
+  get 'my_pages/edit'
   root to: 'tops#index'
-  resources :users, only: %i[new destroy show]
+  resources :users, only: %i[new destroy]
   resources :wastings, only: %i[create]
   resources :terms_of_services, only: %i[index]
   resources :privacy_policys, only: %i[index]
+  resource  :my_page, only: %i[show edit update destroy]
 end
