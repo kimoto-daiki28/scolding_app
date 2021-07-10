@@ -12,4 +12,8 @@ class WastingDecorator < Draper::Decorator
   def self.unrecognizable_response
     "認識できませんでした。\nもう一度入力してください。"
   end
+
+  def wasting_information
+    "#{name}：#{price}円"
+  end
 end

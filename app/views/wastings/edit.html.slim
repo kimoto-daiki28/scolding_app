@@ -1,0 +1,16 @@
+= provide(:title, '編集')
+.card.card-default
+  .card-header.with-border
+    h4.card-title = "#{@wasting.name}を編集する"
+  .card-body
+    = form_with model: @wasting, local: true do |f|
+      = render 'shared/error_messages', model: f.object
+
+      .form-group
+        = f.select :name, ['お菓子', 'お酒', 'ネットショッピング', 'ギャンブル', 'たばこ'], {}, class: 'form-control'
+
+      .form-group
+        = f.label :price
+        = f.text_field :price, class: 'form-control'
+
+      = f.submit nil, class: 'btn btn-primary'

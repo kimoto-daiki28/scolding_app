@@ -3,4 +3,5 @@ json.array!(@events) do |event|
   json.start event.created_at
   json.title "#{event.name}：#{event.price}円"
   json.allDay true
+  json.url wasting_url(event)
 end

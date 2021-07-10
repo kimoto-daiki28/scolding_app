@@ -1,0 +1,21 @@
+= provide(:title, @wasting.name)
+.card.card-default
+  .card-header.with-border.pb-3
+    h4.card-title = @wasting.decorate.wasting_information
+    .card-tools.btn-area
+      = link_to '戻る',
+      my_page_path,
+      id: 'back-my_page-button',
+      class: 'btn btn-outline-secondary mr-3'
+
+      = link_to '編集',
+      edit_wasting_path(@wasting),
+      id: "edit-wasting-#{@wasting.id}-button",
+      class: 'btn btn-outline-primary mr-3'
+
+      = link_to '削除',
+      wasting_path(@wasting),
+      method: :delete,
+      data: { confirm: '削除しますか？' },
+      id: "delete-wasting-#{@wasting.id}-button",
+      class: 'btn btn-outline-danger'
