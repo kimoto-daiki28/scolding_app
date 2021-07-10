@@ -2,6 +2,7 @@ class WastingsController < ApplicationController
   require 'line/bot'
   protect_from_forgery except: :create
   before_action :validate_signature, only: :create
+  before_action :set_wasting, only: %i[show edit update destroy]
   skip_before_action :login_require, only: :create
 
   def create
@@ -31,6 +32,23 @@ class WastingsController < ApplicationController
       end
     end
     head :ok
+  end
+
+  def show; end
+
+  def edit; end
+
+  def update
+    if @wasting.update(wasting_params)
+      redirect_to @wasting, notice: '更新しました。'
+    else
+      render :edit
+    end
+  end
+
+  def destroy
+    @wasting.destroy
+    redirect_to my_page_path, notice: '削除しました。'
   end
 
   private
@@ -68,5 +86,13 @@ class WastingsController < ApplicationController
     wasting = @user.wastings.last
     wasting[:price] = message
     wasting.save
+  end
+
+  def set_wasting
+    @wasting = current_user.wastings.find(params[:id])
+  end
+
+  def wasting_params
+    params.require(:wasting).permit(:name, :price)
   end
 end
