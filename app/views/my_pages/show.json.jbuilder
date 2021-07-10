@@ -1,5 +1,6 @@
-json.array!(@wastings) do |wasting|
-  json.extract! wasting, :id, :title
-  json.start wasting.created_at
-  json.end wasting.created_at
+json.array!(@events) do |event|
+  json.extract! event, :id, :name, :price
+  json.start event.created_at
+  json.title "#{event.name}：#{event.price}円"
+  json.allDay true
 end
