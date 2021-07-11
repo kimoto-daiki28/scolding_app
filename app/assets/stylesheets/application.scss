@@ -5,6 +5,8 @@
  @import "bootstrap";
  @import "font-awesome-sprockets";
  @import "font-awesome";
+ @import '@fullcalendar/core/main.css';
+ @import '@fullcalendar/daygrid/main.css';
  @import "top";
 
 .nav-item {
