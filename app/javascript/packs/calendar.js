@@ -7,6 +7,7 @@ document.addEventListener('turbolinks:load', function() {
 
   var calendar = new Calendar(calendarEl, {
     plugins: [ dayGridPlugin, interactionPlugin ],
+    initialView: 'dayGridMonth',
 
     locale: 'ja',
     timeZone: 'Asia/Tokyo',
