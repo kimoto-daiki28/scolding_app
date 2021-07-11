@@ -5,11 +5,6 @@ class UsersController < ApplicationController
     redirect_to my_page_path, notice: 'ログインしました。'
   end
 
-  def destroy
-    @current_user&.destroy
-    redirect_to root_path, notice: 'ログアウトしました。'
-  end
-
   def show
     @user = User.find(params[:id])
   end

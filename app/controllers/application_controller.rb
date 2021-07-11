@@ -3,6 +3,6 @@ class ApplicationController < ActionController::Base
   include UsersHelper
 
   def login_require
-    redirect_to root_path, warning: 'ログインしてください。' unless current_user
+    redirect_to root_path, alert: 'ログインしてください。' unless current_user
   end
 end
