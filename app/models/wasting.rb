@@ -1,6 +1,8 @@
 class Wasting < ApplicationRecord
   belongs_to :user
 
+  validates :price, numericality: { greater_than_or_equal_to: 0 }
+
   scope :weekly, -> { where(created_at: (0.days.ago.prev_week(:monday))..(0.days.ago.prev_week(:sunday).end_of_day)) }
   scope :weekly_total_wasting, -> { weekly.pluck(:price).sum }
   scope :sweets, -> { where(name: 'お菓子') }
