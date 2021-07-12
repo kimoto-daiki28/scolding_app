@@ -11,6 +11,7 @@ class Wasting < ApplicationRecord
   scope :gamblings, -> { where(name: 'ギャンブル') }
   scope :cigarettes, -> { where(name: 'たばこ') }
   scope :games, -> { where(name: 'ゲーム課金') }
+  scope :eating_outs, -> { where(name: '無駄な外食') }
 
   def self.first_quick_reply
     {
@@ -98,7 +99,16 @@ class Wasting < ApplicationRecord
               "label": "ゲーム課金",
               "text": "ゲーム課金"
             }
-          }
+          },
+          {
+            "type": "action",
+            "imageUrl": "https://illust8.com/wp-content/uploads/2020/07/familyrestaurant_10036.png",
+            "action": {
+              "type": "message",
+              "label": "無駄な外食",
+              "text": "無駄な外食"
+            }
+          },
         ]
       }
     }
@@ -145,7 +155,8 @@ class Wasting < ApplicationRecord
 ネットショッピング: #{online_shoppings.weekly_total_wasting}円
 ギャンブル: #{gamblings.weekly_total_wasting}円
 たばこ: #{cigarettes.weekly_total_wasting}円
-ゲーム課金: #{games.weekly_total_wasting}円"
+ゲーム課金: #{games.weekly_total_wasting}円
+無駄な外食: #{eating_outs.weekly_total_wasting}円"
     }
   end
 end

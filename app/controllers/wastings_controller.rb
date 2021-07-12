@@ -18,7 +18,7 @@ class WastingsController < ApplicationController
             message = Wasting.second_quick_reply
           when 'してない'
             response = WastingDecorator.name_response
-          when 'お菓子', 'お酒', 'ネットショッピング', 'ギャンブル', 'たばこ', 'ゲーム課金'
+          when 'お菓子', 'お酒', 'ネットショッピング', 'ギャンブル', 'たばこ', 'ゲーム課金', '無駄な外食'
             @wasting = @user.wastings.create(name: event['message']['text'])
             response = "いくらでしたか？\n1〜30000で入力してください。"
           when ('1'..'30000')
