@@ -10,6 +10,7 @@ class Wasting < ApplicationRecord
   scope :online_shoppings, -> { where(name: 'ネットショッピング') }
   scope :gamblings, -> { where(name: 'ギャンブル') }
   scope :cigarettes, -> { where(name: 'たばこ') }
+  scope :games, -> { where(name: 'ゲーム課金') }
 
   def self.first_quick_reply
     {
@@ -19,7 +20,6 @@ class Wasting < ApplicationRecord
         "items": [
           {
             "type": "action",
-            "imageUrl": "https://example.com/sushi.png",
             "action": {
               "type": "message",
               "label": "した",
@@ -28,7 +28,6 @@ class Wasting < ApplicationRecord
           },
           {
             "type": "action",
-            "imageUrl": "https://example.com/tempura.png",
             "action": {
               "type": "message",
               "label": "してない",
@@ -48,7 +47,7 @@ class Wasting < ApplicationRecord
         "items": [
           {
             "type": "action",
-            "imageUrl": "https://example.com/sushi.png",
+            "imageUrl": "https://illust8.com/wp-content/uploads/2021/02/shopping_cart_sweet_12432.png",
             "action": {
               "type": "message",
               "label": "お菓子",
@@ -57,7 +56,7 @@ class Wasting < ApplicationRecord
           },
           {
             "type": "action",
-            "imageUrl": "https://example.com/tempura.png",
+            "imageUrl": "https://illust8.com/wp-content/uploads/2019/11/beer_bin_5813.png",
             "action": {
               "type": "message",
               "label": "お酒",
@@ -66,7 +65,7 @@ class Wasting < ApplicationRecord
           },
           {
             "type": "action",
-            "imageUrl": "https://example.com/tempura.png",
+            "imageUrl": "https://illust8.com/wp-content/uploads/2020/06/smartphone_pay_9871.png",
             "action": {
               "type": "message",
               "label": "ネットショッピング",
@@ -75,7 +74,7 @@ class Wasting < ApplicationRecord
           },
           {
             "type": "action",
-            "imageUrl": "https://example.com/tempura.png",
+            "imageUrl": "https://illust8.com/wp-content/uploads/2019/09/keiba_baken_4824.png",
             "action": {
               "type": "message",
               "label": "ギャンブル",
@@ -84,11 +83,20 @@ class Wasting < ApplicationRecord
           },
           {
             "type": "action",
-            "imageUrl": "https://example.com/tempura.png",
+            "imageUrl": "https://illust8.com/wp-content/uploads/2019/09/tabako_suigara_haizara_4682.png",
             "action": {
               "type": "message",
               "label": "たばこ",
               "text": "たばこ"
+            }
+          },
+          {
+            "type": "action",
+            "imageUrl": "https://illust8.com/wp-content/uploads/2021/06/bitcoin_smartphone_13660.png",
+            "action": {
+              "type": "message",
+              "label": "ゲーム課金",
+              "text": "ゲーム課金"
             }
           }
         ]
@@ -136,7 +144,8 @@ class Wasting < ApplicationRecord
 お酒: #{alcohols.weekly_total_wasting}円
 ネットショッピング: #{online_shoppings.weekly_total_wasting}円
 ギャンブル: #{gamblings.weekly_total_wasting}円
-たばこ: #{cigarettes.weekly_total_wasting}円"
+たばこ: #{cigarettes.weekly_total_wasting}円
+ゲーム課金: #{games.weekly_total_wasting}円"
     }
   end
 end

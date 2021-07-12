@@ -18,7 +18,7 @@ class WastingsController < ApplicationController
             message = Wasting.second_quick_reply
           when 'してない'
             response = WastingDecorator.name_response
-          when 'お菓子', 'お酒', 'ネットショッピング', 'ギャンブル', 'たばこ'
+          when 'お菓子', 'お酒', 'ネットショッピング', 'ギャンブル', 'たばこ', 'ゲーム課金'
             @wasting = @user.wastings.create(name: event['message']['text'])
             response = "いくらでしたか？\n1〜30000で入力してください。"
           when ('1'..'30000')
@@ -63,10 +63,10 @@ class WastingsController < ApplicationController
 
   def client
     @client ||= Line::Bot::Client.new { |config|
-      config.channel_secret = ENV["LINE_CHANNEL_SECRET"]
-      config.channel_token = ENV["LINE_CHANNEL_TOKEN"]
-      # config.channel_secret = ENV["DEVELOP_LINE_CHANNEL_SECRET"]
-      # config.channel_token = ENV["DEVELOP_LINE_CHANNEL_TOKEN"]
+      # config.channel_secret = ENV["LINE_CHANNEL_SECRET"]
+      # config.channel_token = ENV["LINE_CHANNEL_TOKEN"]
+      config.channel_secret = ENV["DEVELOP_LINE_CHANNEL_SECRET"]
+      config.channel_token = ENV["DEVELOP_LINE_CHANNEL_TOKEN"]
     }
   end
 
