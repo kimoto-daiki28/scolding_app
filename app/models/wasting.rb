@@ -3,8 +3,10 @@ class Wasting < ApplicationRecord
 
   validates :price, numericality: { greater_than_or_equal_to: 0 }
 
-  scope :weekly, -> { where(created_at: (0.days.ago.prev_week(:monday))..(0.days.ago.prev_week(:sunday).end_of_day)) }
-  scope :weekly_total_wasting, -> { weekly.pluck(:price).sum }
+  scope :this_week, -> { where(created_at: (Date.today.beginning_of_week)..(Date.today.end_of_week))}
+  scope :this_week_total_wasting, -> { this_week.pluck(:price).sum }
+  scope :last_week, -> { where(created_at: (0.days.ago.prev_week(:monday))..(0.days.ago.prev_week(:sunday).end_of_day)) }
+  scope :last_week_total_wasting, -> { last_week.pluck(:price).sum }
   scope :sweets, -> { where(name: 'お菓子') }
   scope :alcohols, -> { where(name: 'お酒') }
   scope :online_shoppings, -> { where(name: 'ネットショッピング') }
@@ -146,17 +148,17 @@ class Wasting < ApplicationRecord
   def self.weekly_report
     {
       "type": "text",
-      "text": "先週は#{weekly_total_wasting}円も無駄遣いをしましたね...
-#{weekly_total_wasting}円はあなたの時給の何時間分ですか？
+      "text": "先週は#{last_week_total_wasting}円も無駄遣いをしましたね...
+#{last_week_total_wasting}円はあなたの時給の何時間分ですか？
 あなたの意志の弱さ故にその労働が無駄になったことに気づいてください...
 悔い改めましょう。
-お菓子: #{sweets.weekly_total_wasting}円
-お酒: #{alcohols.weekly_total_wasting}円
-ネットショッピング: #{online_shoppings.weekly_total_wasting}円
-ギャンブル: #{gamblings.weekly_total_wasting}円
-たばこ: #{cigarettes.weekly_total_wasting}円
-ゲーム課金: #{games.weekly_total_wasting}円
-無駄な外食: #{eating_outs.weekly_total_wasting}円"
+お菓子: #{sweets.last_week_total_wasting}円
+お酒: #{alcohols.last_week_total_wasting}円
+ネットショッピング: #{online_shoppings.last_week_total_wasting}円
+ギャンブル: #{gamblings.last_week_total_wasting}円
+たばこ: #{cigarettes.last_week_total_wasting}円
+ゲーム課金: #{games.last_week_total_wasting}円
+無駄な外食: #{eating_outs.last_week_total_wasting}円"
     }
   end
 end

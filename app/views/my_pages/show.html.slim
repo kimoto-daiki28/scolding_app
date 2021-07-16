@@ -1,3 +1,6 @@
 = provide(:title, current_user.name)
 
 div id='calendar'
+
+h3= "先週の無駄遣い：#{current_user.wastings.last_week_total_wasting}円"
+h3= "今週の無駄遣い：#{current_user.wastings.this_week_total_wasting}円"
