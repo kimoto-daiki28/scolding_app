@@ -15,6 +15,10 @@ class Wasting < ApplicationRecord
   scope :games, -> { where(name: 'ゲーム課金') }
   scope :eating_outs, -> { where(name: '無駄な外食') }
 
+  def self.weekly_difference
+    last_week_total_wasting - this_week_total_wasting
+  end
+
   def self.first_quick_reply
     {
       "type": "text",
