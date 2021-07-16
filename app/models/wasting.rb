@@ -7,6 +7,10 @@ class Wasting < ApplicationRecord
   scope :this_week_total_wasting, -> { this_week.pluck(:price).sum }
   scope :last_week, -> { where(created_at: (0.days.ago.prev_week(:monday))..(0.days.ago.prev_week(:sunday).end_of_day)) }
   scope :last_week_total_wasting, -> { last_week.pluck(:price).sum }
+  scope :the_week_before_last, -> { where(created_at: (0.days.ago.prev_week.prev_week(:monday))..(0.days.ago.prev_week.prev_week(:sunday).end_of_day)) }
+  scope :the_week_before_last_total_wasting, -> { the_week_before_last.pluck(:price).sum }
+
+  # quickReply
   scope :sweets, -> { where(name: 'お菓子') }
   scope :alcohols, -> { where(name: 'お酒') }
   scope :online_shoppings, -> { where(name: 'ネットショッピング') }
@@ -17,6 +21,10 @@ class Wasting < ApplicationRecord
 
   def self.weekly_difference
     last_week_total_wasting - this_week_total_wasting
+  end
+
+  def self.last_week_difference
+    last_week_total_wasting - the_week_before_last_total_wasting
   end
 
   def self.first_quick_reply
@@ -150,12 +158,17 @@ class Wasting < ApplicationRecord
   end
 
   def self.weekly_report
-    {
-      "type": "text",
-      "text": "先週は#{last_week_total_wasting}円も無駄遣いをしましたね...
-#{last_week_total_wasting}円はあなたの時給の何時間分ですか？
-あなたの意志の弱さ故にその労働が無駄になったことに気づいてください...
-悔い改めましょう。
+    if last_week_total_wasting.zero?
+      {
+        "type": "text",
+        "text": "先週は無駄遣い無しでした！\n素晴らしい！今週もこの調子でいきましょう！！"
+      }
+    elsif last_week_difference.negative?
+      {
+        "type": "text",
+        "text": "先週の無駄遣いは#{last_week_total_wasting}円でした。
+先々週より#{last_week_difference}円も減らせましたね！！
+この調子で無駄遣いを撲滅していきましょう！
 お菓子: #{sweets.last_week_total_wasting}円
 お酒: #{alcohols.last_week_total_wasting}円
 ネットショッピング: #{online_shoppings.last_week_total_wasting}円
@@ -163,6 +176,21 @@ class Wasting < ApplicationRecord
 たばこ: #{cigarettes.last_week_total_wasting}円
 ゲーム課金: #{games.last_week_total_wasting}円
 無駄な外食: #{eating_outs.last_week_total_wasting}円"
-    }
+      }
+    elsif last_week_difference.positive?
+      {
+        "type": "text",
+        "text": "先週の無駄遣いは#{last_week_total_wasting}円でした。
+先々週より#{last_week_difference}円も増えていますね...
+今週はもうちょっと頑張りましょう！
+お菓子: #{sweets.last_week_total_wasting}円
+お酒: #{alcohols.last_week_total_wasting}円
+ネットショッピング: #{online_shoppings.last_week_total_wasting}円
+ギャンブル: #{gamblings.last_week_total_wasting}円
+たばこ: #{cigarettes.last_week_total_wasting}円
+ゲーム課金: #{games.last_week_total_wasting}円
+無駄な外食: #{eating_outs.last_week_total_wasting}円"
+      }
+    end
   end
 end

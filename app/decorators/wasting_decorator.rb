@@ -16,4 +16,14 @@ class WastingDecorator < Draper::Decorator
   def wasting_information
     "#{name}：#{price}円"
   end
+
+  def each_totals
+    "お菓子: #{sweets.last_week_total_wasting}円
+お酒: #{alcohols.last_week_total_wasting}円
+ネットショッピング: #{online_shoppings.last_week_total_wasting}円
+ギャンブル: #{gamblings.last_week_total_wasting}円
+たばこ: #{cigarettes.last_week_total_wasting}円
+ゲーム課金: #{games.last_week_total_wasting}円
+無駄な外食: #{eating_outs.last_week_total_wasting}円"
+  end
 end
