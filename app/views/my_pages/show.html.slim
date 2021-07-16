@@ -2,10 +2,15 @@
 
 div id='calendar'
 
-.row
+.row.weekly-total.mt-2
   .col-md-4
     h3= "先週の無駄遣い：#{current_user.wastings.last_week_total_wasting}円"
   .col-md-4
     h3= "今週の無駄遣い：#{current_user.wastings.this_week_total_wasting}円"
-  .col-md-4
-    h3= "差分：#{current_user.wastings.weekly_difference}円"
+  
+  - if current_user.wastings.weekly_difference < 0
+    .col-md-4 style="color: #ff0000;"
+      h3= "差分：#{current_user.wastings.weekly_difference}円"
+  - else 
+    .col-md-4
+      h3= "差分：#{current_user.wastings.weekly_difference}円"
