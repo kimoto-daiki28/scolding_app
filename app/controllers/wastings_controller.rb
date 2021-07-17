@@ -8,13 +8,15 @@ class WastingsController < ApplicationController
   def create
     events.each do |event|
       @user = User.find_by(line_id: event['source']['userId'])
+      @today_wastings = @user.wastings.today_wastings
+      @yesterday_wastings = @user.wastings.yesterday_wastings
       @message = event.message['text']
       case event
       when Line::Bot::Event::Message
         case event.type
         when Line::Bot::Event::MessageType::Text
           case @message
-          when 'した'
+          when 'した', 'はい'
             message = Wasting.second_quick_reply
           when 'してない'
             response = WastingDecorator.name_response
@@ -22,8 +24,10 @@ class WastingsController < ApplicationController
             @wasting = @user.wastings.create(name: event['message']['text'])
             response = "いくらでしたか？\n1〜30000で入力してください。"
           when ('1'..'30000')
-            response = WastingDecorator.price_response(@message)
             wasting_find_and_save(event['message']['text'])
+            message = Wasting.third_quick_reply
+          when 'いいえ'
+            response = WastingDecorator.price_response(@today_wastings, @yesterday_wastings)
           else
             response = WastingDecorator.unrecognizable_response
           end

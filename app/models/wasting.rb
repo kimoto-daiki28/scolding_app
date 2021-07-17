@@ -3,8 +3,19 @@ class Wasting < ApplicationRecord
 
   validates :price, numericality: { greater_than_or_equal_to: 0 }
 
-  scope :weekly, -> { where(created_at: (0.days.ago.prev_week(:monday))..(0.days.ago.prev_week(:sunday).end_of_day)) }
-  scope :weekly_total_wasting, -> { weekly.pluck(:price).sum }
+  # day
+  scope :today_wastings, -> { where(created_at: Date.today.in_time_zone.all_day) }
+  scope :yesterday_wastings, -> { where(created_at: 1.day.ago.in_time_zone.all_day) }
+
+  # week
+  scope :this_week, -> { where(created_at: (Date.today.beginning_of_week)..(Date.today.end_of_week))}
+  scope :this_week_total_wasting, -> { this_week.pluck(:price).sum }
+  scope :last_week, -> { where(created_at: (0.days.ago.prev_week(:monday))..(0.days.ago.prev_week(:sunday).end_of_day)) }
+  scope :last_week_total_wasting, -> { last_week.pluck(:price).sum }
+  scope :the_week_before_last, -> { where(created_at: (0.days.ago.prev_week.prev_week(:monday))..(0.days.ago.prev_week.prev_week(:sunday).end_of_day)) }
+  scope :the_week_before_last_total_wasting, -> { the_week_before_last.pluck(:price).sum }
+
+  # quickReply
   scope :sweets, -> { where(name: 'お菓子') }
   scope :alcohols, -> { where(name: 'お酒') }
   scope :online_shoppings, -> { where(name: 'ネットショッピング') }
@@ -12,6 +23,14 @@ class Wasting < ApplicationRecord
   scope :cigarettes, -> { where(name: 'たばこ') }
   scope :games, -> { where(name: 'ゲーム課金') }
   scope :eating_outs, -> { where(name: '無駄な外食') }
+
+  def self.weekly_difference
+    last_week_total_wasting - this_week_total_wasting
+  end
+
+  def self.last_week_difference
+    last_week_total_wasting - the_week_before_last_total_wasting
+  end
 
   def self.first_quick_reply
     {
@@ -117,12 +136,11 @@ class Wasting < ApplicationRecord
   def self.third_quick_reply
     {
       "type": "text",
-      "text": "他にはありますか？",
+      "text": "他に無駄遣いをしましたか？",
       "quickReply": {
         "items": [
           {
             "type": "action",
-            "imageUrl": "https://example.com/sushi.png",
             "action": {
               "type": "message",
               "label": "はい",
@@ -131,7 +149,6 @@ class Wasting < ApplicationRecord
           },
           {
             "type": "action",
-            "imageUrl": "https://example.com/tempura.png",
             "action": {
               "type": "message",
               "label": "いいえ",
@@ -144,19 +161,41 @@ class Wasting < ApplicationRecord
   end
 
   def self.weekly_report
-    {
-      "type": "text",
-      "text": "先週は#{weekly_total_wasting}円も無駄遣いをしましたね...
-#{weekly_total_wasting}円はあなたの時給の何時間分ですか？
-あなたの意志の弱さ故にその労働が無駄になったことに気づいてください...
-悔い改めましょう。
-お菓子: #{sweets.weekly_total_wasting}円
-お酒: #{alcohols.weekly_total_wasting}円
-ネットショッピング: #{online_shoppings.weekly_total_wasting}円
-ギャンブル: #{gamblings.weekly_total_wasting}円
-たばこ: #{cigarettes.weekly_total_wasting}円
-ゲーム課金: #{games.weekly_total_wasting}円
-無駄な外食: #{eating_outs.weekly_total_wasting}円"
-    }
+    if last_week_total_wasting.zero?
+      {
+        "type": "text",
+        "text": "先週は無駄遣い無しでした！\n素晴らしい！今週もこの調子でいきましょう！！"
+      }
+    elsif last_week_difference.negative?
+      {
+        "type": "text",
+        "text": "先週の無駄遣いは#{last_week_total_wasting}円でした。
+先々週より#{last_week_difference}円も減らせましたね！！
+この調子で無駄遣いを撲滅していきましょう！\n#{each_totals}"
+      }
+    elsif last_week_difference.positive?
+      {
+        "type": "text",
+        "text": "先週の無駄遣いは#{last_week_total_wasting}円でした。
+先々週より#{last_week_difference}円も増えていますね...
+今週はもうちょっと頑張りましょう！\n#{each_totals}"
+      }
+    else
+      {
+        "type": "text",
+        "text": "先週の無駄遣いは#{last_week_total_wasting}円でした。\n先々週と同額ですね...
+今週は先週の壁を超えましょう！\n#{each_totals}"
+      }
+    end
+  end
+
+  def self.each_totals
+    "お菓子: #{sweets.last_week_total_wasting}円
+お酒: #{alcohols.last_week_total_wasting}円
+ネットショッピング: #{online_shoppings.last_week_total_wasting}円
+ギャンブル: #{gamblings.last_week_total_wasting}円
+たばこ: #{cigarettes.last_week_total_wasting}円
+ゲーム課金: #{games.last_week_total_wasting}円
+無駄な外食: #{eating_outs.last_week_total_wasting}円"
   end
 end
