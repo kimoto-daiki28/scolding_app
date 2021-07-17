@@ -8,11 +8,11 @@ class WastingDecorator < Draper::Decorator
   def self.price_response(today_wastings, yesterday_wastings)
     day_difference = today_wastings.pluck(:price).sum - yesterday_wastings.pluck(:price).sum
     if day_difference.negative?
-      "本日の無駄遣い総額は#{today_wastings.pluck(:price).sum}円でした。\n昨日より#{day_difference}円減りました！"
+      "本日の無駄遣い総額は#{today_wastings.pluck(:price).sum}円でした。\n昨日より#{day_difference}円減りました\nこの調子で少しずつ減らしていきましょう！"
     elsif day_difference.positive?
-      "本日の無駄遣い総額は#{today_wastings.pluck(:price).sum}円でした。\n昨日より#{day_difference}円増えましたね..."
+      "本日の無駄遣い総額は#{today_wastings.pluck(:price).sum}円でした。\n昨日より#{day_difference}円増えましたね...\n明日は期待してます..."
     else
-      "本日の無駄遣い総額は#{today_wastings.pluck(:price).sum}円でした。\n昨日と同じです。"
+      "本日の無駄遣い総額は#{today_wastings.pluck(:price).sum}円でした。\n昨日と同額ですね。"
     end
   end
 

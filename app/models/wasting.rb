@@ -141,7 +141,6 @@ class Wasting < ApplicationRecord
         "items": [
           {
             "type": "action",
-            "imageUrl": "https://example.com/sushi.png",
             "action": {
               "type": "message",
               "label": "はい",
@@ -150,7 +149,6 @@ class Wasting < ApplicationRecord
           },
           {
             "type": "action",
-            "imageUrl": "https://example.com/tempura.png",
             "action": {
               "type": "message",
               "label": "いいえ",
