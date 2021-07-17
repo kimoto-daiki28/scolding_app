@@ -23,6 +23,7 @@ namespace :push_line do
     users = User.all
     users.each do |user|
       message = user.wastings.weekly_report
+      each_totals = user.wastings.each_totals
 
       # client = Line::Bot::Client.new { |config|
       #   config.channel_secret = ENV["LINE_CHANNEL_SECRET"]
@@ -35,6 +36,7 @@ namespace :push_line do
       }
 
       client.push_message(user.line_id, message)
+      client.push_message(user.line_id, each_totals)
     end
   end
 end

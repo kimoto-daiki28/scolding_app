@@ -5,8 +5,15 @@ class WastingDecorator < Draper::Decorator
     "えらい！よく我慢できました！\nあなたのそのブレない心に称賛を送ります！\nその調子で誘惑に打ち勝っていきましょう！！"
   end
 
-  def self.price_response(message)
-    "#{message}円も使ったんですか？\n意志の弱い人ですね...\nただでさえ財布が薄いんですからもうちょっと考えましょうよ..."
+  def self.price_response(today_wastings, yesterday_wastings)
+    day_difference = today_wastings.pluck(:price).sum - yesterday_wastings.pluck(:price).sum
+    if day_difference.negative?
+      "本日の無駄遣い総額は#{today_wastings.pluck(:price).sum}円でした。\n昨日より#{day_difference}円減りました！"
+    elsif day_difference.positive?
+      "本日の無駄遣い総額は#{today_wastings.pluck(:price).sum}円でした。\n昨日より#{day_difference}円増えましたね..."
+    else
+      "本日の無駄遣い総額は#{today_wastings.pluck(:price).sum}円でした。\n昨日と同じです。"
+    end
   end
 
   def self.unrecognizable_response

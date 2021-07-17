@@ -3,6 +3,11 @@ class Wasting < ApplicationRecord
 
   validates :price, numericality: { greater_than_or_equal_to: 0 }
 
+  # day
+  scope :today_wastings, -> { where(created_at: Date.today.in_time_zone.all_day) }
+  scope :yesterday_wastings, -> { where(created_at: 1.day.ago.in_time_zone.all_day) }
+
+  # week
   scope :this_week, -> { where(created_at: (Date.today.beginning_of_week)..(Date.today.end_of_week))}
   scope :this_week_total_wasting, -> { this_week.pluck(:price).sum }
   scope :last_week, -> { where(created_at: (0.days.ago.prev_week(:monday))..(0.days.ago.prev_week(:sunday).end_of_day)) }
@@ -131,7 +136,7 @@ class Wasting < ApplicationRecord
   def self.third_quick_reply
     {
       "type": "text",
-      "text": "他にはありますか？",
+      "text": "他に無駄遣いをしましたか？",
       "quickReply": {
         "items": [
           {
@@ -168,29 +173,31 @@ class Wasting < ApplicationRecord
         "type": "text",
         "text": "先週の無駄遣いは#{last_week_total_wasting}円でした。
 先々週より#{last_week_difference}円も減らせましたね！！
-この調子で無駄遣いを撲滅していきましょう！
-お菓子: #{sweets.last_week_total_wasting}円
-お酒: #{alcohols.last_week_total_wasting}円
-ネットショッピング: #{online_shoppings.last_week_total_wasting}円
-ギャンブル: #{gamblings.last_week_total_wasting}円
-たばこ: #{cigarettes.last_week_total_wasting}円
-ゲーム課金: #{games.last_week_total_wasting}円
-無駄な外食: #{eating_outs.last_week_total_wasting}円"
+この調子で無駄遣いを撲滅していきましょう！\n#{each_totals}"
       }
     elsif last_week_difference.positive?
       {
         "type": "text",
         "text": "先週の無駄遣いは#{last_week_total_wasting}円でした。
 先々週より#{last_week_difference}円も増えていますね...
-今週はもうちょっと頑張りましょう！
-お菓子: #{sweets.last_week_total_wasting}円
+今週はもうちょっと頑張りましょう！\n#{each_totals}"
+      }
+    else
+      {
+        "type": "text",
+        "text": "先週の無駄遣いは#{last_week_total_wasting}円でした。\n先々週と同額ですね...
+今週は先週の壁を超えましょう！\n#{each_totals}"
+      }
+    end
+  end
+
+  def self.each_totals
+    "お菓子: #{sweets.last_week_total_wasting}円
 お酒: #{alcohols.last_week_total_wasting}円
 ネットショッピング: #{online_shoppings.last_week_total_wasting}円
 ギャンブル: #{gamblings.last_week_total_wasting}円
 たばこ: #{cigarettes.last_week_total_wasting}円
 ゲーム課金: #{games.last_week_total_wasting}円
 無駄な外食: #{eating_outs.last_week_total_wasting}円"
-      }
-    end
   end
 end
