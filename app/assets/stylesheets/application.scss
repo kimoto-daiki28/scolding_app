@@ -7,6 +7,7 @@
  @import "font-awesome";
  @import '@fullcalendar/common/main.css';
  @import '@fullcalendar/daygrid/main.css';
+ @import 'swiper/swiper-bundle';
  @import "top";
  @import 'my_page';
 
@@ -47,3 +48,10 @@ small {
 }
 
 //footer
+
+// swiper
+.swiper-container {
+  width: 300px;
+  height: 700px;
+}
+// swiper

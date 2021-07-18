@@ -12,4 +12,15 @@
           / = link_to ENV['LINE_LOGIN'], id: 'test' do 
           = image_tag 'btn_login_hover.png', size: '180x60', class: 'mt-5'
     .col-md-4 
-      = image_tag 'iphone.png', size: '300x700'
+      .swiper-container
+        .swiper-wrapper
+          .swiper-slide
+            = image_tag 'iphone.png', size: '300x700'
+          .swiper-slide
+            = image_tag 'iphone.png', size: '300x700'
+          .swiper-slide
+            = image_tag 'logo.png', size: '300x700'
+        .swiper-pagination
+        / .swiper-button-prev
+        / .swiper-button-next
+        /.swiper-scrollbar
