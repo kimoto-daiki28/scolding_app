@@ -7,6 +7,14 @@ ja:
         restrict_dependent_destroy:
           has_one: "%{record}が存在しているので削除できません"
           has_many: "%{record}が存在しているので削除できません"
+    models:
+      user: ユーザー
+      wasting: 無駄遣い
+    attributes:
+      user:
+        name: ユーザー名
+      wasting:
+        price: 無駄遣い額
   date:
     abbr_day_names:
     - 日
