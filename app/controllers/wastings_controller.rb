@@ -67,10 +67,10 @@ class WastingsController < ApplicationController
 
   def client
     @client ||= Line::Bot::Client.new { |config|
-      # config.channel_secret = ENV["LINE_CHANNEL_SECRET"]
-      # config.channel_token = ENV["LINE_CHANNEL_TOKEN"]
-      config.channel_secret = ENV["DEVELOP_LINE_CHANNEL_SECRET"]
-      config.channel_token = ENV["DEVELOP_LINE_CHANNEL_TOKEN"]
+      config.channel_secret = ENV["LINE_CHANNEL_SECRET"]
+      config.channel_token = ENV["LINE_CHANNEL_TOKEN"]
+      # config.channel_secret = ENV["DEVELOP_LINE_CHANNEL_SECRET"]
+      # config.channel_token = ENV["DEVELOP_LINE_CHANNEL_TOKEN"]
     }
   end
 
