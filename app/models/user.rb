@@ -1,6 +1,6 @@
 class User < ApplicationRecord
   has_many :wastings, dependent: :destroy
-  validates :name, presence: true, uniqueness: true
+  validates :name, presence: true
   validates :line_id, presence: true, uniqueness: true
 
   def self.line_login(code)
