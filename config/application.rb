@@ -28,6 +28,7 @@ module ScoldingApp
     config.generators do |g|
       g.test_framework :rspec,
         view_specs: false, # ビューファイル用のスペックを作成しない。
+        decorator_specs: false,
         helper_specs: false, # ヘルパーファイル用のスペックを作成しない。
         routing_specs: false, # routes.rb用のスペックファイル作成しない。
         request_specs: false, # requestスペックを作成しない。
