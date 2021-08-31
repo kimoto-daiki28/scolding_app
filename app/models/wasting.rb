@@ -23,6 +23,8 @@ class Wasting < ApplicationRecord
   scope :cigarettes, -> { where(name: 'たばこ') }
   scope :games, -> { where(name: 'ゲーム課金') }
   scope :eating_outs, -> { where(name: '無駄な外食') }
+  scope :others, -> { where(name: 'その他') }
+
 
   def self.weekly_difference
     last_week_total_wasting - this_week_total_wasting
@@ -128,6 +130,15 @@ class Wasting < ApplicationRecord
               "text": "無駄な外食"
             }
           },
+          {
+            "type": "action",
+            "imageUrl": "https://illust8.com/wp-content/uploads/2018/12/fuda_batsu_illust_2444.png",
+            "action": {
+              "type": "message",
+              "label": "その他",
+              "text": "その他"
+            }
+          },
         ]
       }
     }
@@ -196,6 +207,7 @@ class Wasting < ApplicationRecord
 ギャンブル: #{gamblings.last_week_total_wasting}円
 たばこ: #{cigarettes.last_week_total_wasting}円
 ゲーム課金: #{games.last_week_total_wasting}円
-無駄な外食: #{eating_outs.last_week_total_wasting}円"
+無駄な外食: #{eating_outs.last_week_total_wasting}円
+その他: #{others.last_week_total_wasting}円"
   end
 end
