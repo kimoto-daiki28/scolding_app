@@ -31,6 +31,7 @@ class WastingDecorator < Draper::Decorator
 ギャンブル: #{gamblings.last_week_total_wasting}円
 たばこ: #{cigarettes.last_week_total_wasting}円
 ゲーム課金: #{games.last_week_total_wasting}円
-無駄な外食: #{eating_outs.last_week_total_wasting}円"
+無駄な外食: #{eating_outs.last_week_total_wasting}円
+その他: #{others.last_week_total_wasting}円"
   end
 end
